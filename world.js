@@ -1,39 +1,24 @@
-$(document).ready(function () {
-	const lookupBtn = document.getElementById("lookup");
+document.addEventListener("DOMContentLoaded", function () {
+	const lookupButton = document.getElementById("lookup");
 	const countryInput = document.getElementById("country");
-	const result = document.getElementById("result");
+	const resultDiv = document.getElementById("result");
 
-	// listen for search button click
-	$lookupButton.on("click", handleSearch);
+	lookupButton.addEventListener("click", function () {
+		const countryName = countryInput.value.trim();
 
-	// Fetch the data by opening an Ajax connection to fetch data from world.php
-	function handleSearch() {
-		const rawInput = $searchInput.val().trim();
-		//Create and sanitize user input
-		const userInput = sanitizeInput(rawInput);
-
-		//Create url with input as query parameter
-		const url = userInput
-			? //Make ajax call to world.php
-			  `world.php?query=${encodeURIComponent(userInput)}`
-			: "world.php";
-
-		$.ajax({
-			url: url,
-			method: "GET",
-			dataType: "html",
-			success: function (data) {
-				$result.html(data);
-			},
-			error: function () {
-				//Display error msg
-				$result.html("<p>Error fetching country data.</p>");
-			},
-		});
-	}
-
-	//Sanitize user input
-	function sanitizeInput(str) {
-		return str.replace(/[^a-zA-Z0-9\s'-]/g, "");
-	}
+		if (countryName === "") {
+			resultDiv.innerHTML = "<p>Please enter a valid country name.</p>";
+			return;
+		}
+		// OPEN AJAX CONNECTION TO FETCH DATA
+		fetch("world.php?country=" + encodeURIComponent(countryName))
+			.then((response) => response.text())
+			.then((data) => {
+				resultDiv.innerHTML = data;
+			})
+			.catch((error) => {
+				resultDiv.innerHTML = "<p>Error fetching data.</p>";
+				console.error("Error:", error);
+			});
+	});
 });
