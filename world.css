@@ -27,13 +27,13 @@ body {
 }
 
 header {
-	background-color: var(--lighterBlue);
+	background-color: var(--coral);
 	text-align: center;
 	padding: 30px 0;
 }
 
 header h1 {
-	color: var(--black);
+	color: var(--lightGrey);
 	font-size: 2.2rem;
 	font-weight: 700;
 	letter-spacing: 1px;
@@ -84,4 +84,24 @@ main #result {
 	max-width: 900px;
 	margin: 40px auto;
 	padding: 20px;
+}
+
+.country-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 20px 0;
+}
+
+.country-table th {
+	text-align: left;
+	color: var(--lightGrey);
+	border: 0.5px solid var(--black);
+	padding: 12px 15px;
+	background-color: var(--coral);
+	font-weight: bold;
+}
+.country-table td {
+	padding: 12px 15px;
+	text-align: left;
+	border: 0.5px solid var(--black);
 }
